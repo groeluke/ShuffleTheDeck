@@ -39,6 +39,7 @@ namespace ShuffleTheDeck
                     firstRun = false;
                     userPrompt = "Press Enter to draw the first ball";
                 }
+
                 Display();
                 Console.WriteLine(userPrompt);
                 userInput = Console.ReadLine();
