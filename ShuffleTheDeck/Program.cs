@@ -32,7 +32,7 @@ namespace ShuffleTheDeck
                     userPrompt = "All Cards have been drawn\n"
                         + "Press C to draw a Card\n"
                         + "Press Q to quit";
-                    DrawCard();
+                    DrawCard(drawnCards);
                 }
                 else if (firstRun)
                 {
@@ -97,7 +97,7 @@ namespace ShuffleTheDeck
                 //reset 
             }
         }
-        static void DrawCard()
+        static void DrawCard(bool[,] drawnCards) 
         {
             int suit = 0, number = 0;
             do
@@ -106,7 +106,7 @@ namespace ShuffleTheDeck
                 number = RandomNumberZeroTo(13);
             } while (drawnCards[suit, number]);
 
-            drawnCards[suit, number] = true;
+            Program.drawnCards[suit, number] = true;
             
         }
         static void ClearDrawnCards()
