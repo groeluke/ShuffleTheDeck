@@ -62,6 +62,7 @@ namespace ShuffleTheDeck
             string placeHolder = "";
             string columnSeperator = " |";
             string currentRow = "";
+            
           
             string[] heading = { "spades", "clubs", "hearts", "diamonds" };
             //print heading row
@@ -71,19 +72,18 @@ namespace ShuffleTheDeck
             }
             Console.WriteLine();
 
-            string[] numberNames = { "A" , "2" , "3" , "4" , "5" , "6" , "7",
-                    "8", "9" , "10" , "J" , "Q" , "K" };
-            // list of number names for pretty printing
-            for (int number = 1; number <= 13; number++)
+            string[] rank = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+
+            for (int r = 0; r < rank.Length; r++)
             // print the rest of the rows
             {
                 
                 for (int suit = 0; suit < 4; suit++)
                 //assemble the row
                 {
-                    if (drawnCards[suit, number - 1])
+                    if (drawnCards[suit, r])
                     {
-                        prettyNumber = number + suit; 
+                        prettyNumber = r + suit; 
                         //offset the number by the letter column
                         currentRow += prettyNumber.ToString().PadLeft(padding) + columnSeperator;
                     }
@@ -103,7 +103,7 @@ namespace ShuffleTheDeck
             do
             {
                 suit = RandomNumberZeroTo(4);
-                number = RandomNumberZeroTo(13);
+                number = RandomNumberZeroTo(14);
             } while (drawnCards[suit, number]);
 
             Program.drawnCards[suit, number] = true;
