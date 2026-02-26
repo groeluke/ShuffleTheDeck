@@ -12,6 +12,7 @@ namespace ShuffleTheDeck
     {
         static bool[,] drawnCards = new bool[4, 13];
         //make this global so it can be accessed by all methods
+
         static void Main(string[] args)
         {
             bool firstRun = true;
@@ -62,8 +63,9 @@ namespace ShuffleTheDeck
             string placeHolder = "";
             string columnSeperator = " |";
             string currentRow = "";
-            
-          
+
+            string[] rank = { "A", "2", "3" , "4" , "5" , "6" , "7" , "8",
+            "9", "10", "J" , "Q", "K"};
             string[] heading = { "spades", "clubs", "hearts", "diamonds" };
             //print heading row
             foreach (string thing in heading)
@@ -72,18 +74,15 @@ namespace ShuffleTheDeck
             }
             Console.WriteLine();
 
-            string[] rank = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
-
-            for (int r = 0; r < rank.Length; r++)
+            for (int rank = 0; rank < 13; rank++)
             // print the rest of the rows
             {
-                
                 for (int suit = 0; suit < 4; suit++)
                 //assemble the row
                 {
-                    if (drawnCards[suit, r])
+                    if (drawnCards[suit, rank - 1])
                     {
-                        prettyNumber = r + suit; 
+                        prettyNumber = rank + suit;
                         //offset the number by the letter column
                         currentRow += prettyNumber.ToString().PadLeft(padding) + columnSeperator;
                     }
@@ -93,11 +92,11 @@ namespace ShuffleTheDeck
                     }
                 }
                 Console.WriteLine(currentRow);
-                currentRow = ""; 
+                currentRow = "";
                 //reset 
             }
         }
-        static void DrawCard(bool[,] drawnCards) 
+        static void DrawCard(bool[,] drawnCards)
         {
             int suit = 0, number = 0;
             do
@@ -107,20 +106,20 @@ namespace ShuffleTheDeck
             } while (drawnCards[suit, number]);
 
             Program.drawnCards[suit, number] = true;
-            
+
         }
         static void ClearDrawnCards()
-        { 
-            drawnCards = new bool[4, 13]; 
+        {
+            drawnCards = new bool[4, 13];
             // this is the same as the above two lines, but more concise
 
         }
         static private int RandomNumberZeroTo(int max)
         {
-            int range = max + 1; 
+            int range = max + 1;
             //make max inclusive
             Random rand = new Random();
-            return rand.Next(range); 
+            return rand.Next(range);
             //returns a random number between 0 and max, inclusive
         }
     }
