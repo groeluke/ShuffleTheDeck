@@ -30,9 +30,9 @@ namespace ShuffleTheDeck
                 }
                 if (cardCount < 52 && !firstRun)
                 {
-                    userPrompt = "All Cards have been drawn\n"
-                        + "Press C to draw a Card\n"
-                        + "Press Q to quit";
+                    userPrompt = " If all cards have been drawn\n"
+                        + "Press C to draw a Card \n"
+                        + " Or press Q to quit";
                     DrawCard(drawnCards);
                 }
                 else if (firstRun)
@@ -64,27 +64,29 @@ namespace ShuffleTheDeck
             string columnSeperator = " |";
             string currentRow = "";
 
-            string[] rank = { "A", "2", "3" , "4" , "5" , "6" , "7" , "8",
-            "9", "10", "J" , "Q", "K"};
             string[] heading = { "spades", "clubs", "hearts", "diamonds" };
-            //print heading row
+            string[] ranks = { "A", "2", "3", "4",  "5", "6", "7", "8",
+                       "9", "10", "J", "Q", "K"};
+
+            // print heading row
             foreach (string thing in heading)
             {
                 Console.Write(thing.PadLeft(padding) + columnSeperator);
             }
             Console.WriteLine();
 
-            for (int rank = 0; rank < 13; rank++)
+            for (int rank = 0; rank < 12; rank++)
             // print the rest of the rows
             {
                 for (int suit = 0; suit < 4; suit++)
                 //assemble the row
                 {
-                    if (drawnCards[suit, rank - 1])
+                    if (drawnCards[suit, rank])
                     {
                         prettyNumber = rank + suit;
                         //offset the number by the letter column
-                        currentRow += prettyNumber.ToString().PadLeft(padding) + columnSeperator;
+                        currentRow += prettyNumber.ToString().PadLeft(padding) + columnSeperator; 
+                        // if the card is drawn then print the number
                     }
                     else
                     {
@@ -103,20 +105,21 @@ namespace ShuffleTheDeck
             {
                 suit = RandomNumberZeroTo(4);
                 number = RandomNumberZeroTo(14);
-            } while (drawnCards[suit, number]);
+            } while (drawnCards[suit, number]); 
+            //keep trying until we get a card that hasn't been drawn
 
-            Program.drawnCards[suit, number] = true;
+            Program.drawnCards[suit, number] = true; 
+            // mark the card as been drawn
 
         }
         static void ClearDrawnCards()
         {
-            drawnCards = new bool[4, 13];
-            // this is the same as the above two lines, but more concise
-
+            drawnCards = new bool[4, 13]; 
+            // reset the array clearing all drawn cards
         }
         static private int RandomNumberZeroTo(int max)
         {
-            int range = max + 1;
+            int range = max;
             //make max inclusive
             Random rand = new Random();
             return rand.Next(range);
