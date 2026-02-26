@@ -1,7 +1,7 @@
 ﻿/*Luke Groesbeck
 Spring 2026
 RCET 2265
-Project RollOfTheDice
+Project Shuffle The Deck
 Computer Fundamentals and Introduction to Programming
 https://github.com/groeluke/ShuffleTheDeck.git
 */
