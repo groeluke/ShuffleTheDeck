@@ -23,7 +23,7 @@ namespace ShuffleTheDeck
             do
             {
                 Console.Clear();
-                if (newGame)
+                if (newGame) // 
                 {
                     userPrompt = "Wlcome to Shuffle The Deck";
                     newGame = false;
@@ -33,9 +33,14 @@ namespace ShuffleTheDeck
                     userPrompt = " If all cards have been drawn\n"
                         + "Press C to draw a Card \n"
                         + " Or press Q to quit";
+                   
+                    Console.WriteLine("Card Count: " + cardCount++); 
+                    // increment the card drawn count
                     DrawCard(drawnCards);
+                    // draw a card and mark it as drawn
                 }
-                else if (firstRun)
+                else if (firstRun) 
+                // if this is the first run then prompt the user to draw the first card
                 {
                     firstRun = false;
                     userPrompt = "Press Enter to draw the first ball";
@@ -59,14 +64,13 @@ namespace ShuffleTheDeck
         static void Display()
         {
             int padding = 8;
-            int prettyNumber = 0;
+            string prettyRank = "";
             string placeHolder = "";
             string columnSeperator = " |";
             string currentRow = "";
 
-            string[] heading = { "spades", "clubs", "hearts", "diamonds" };
-            string[] ranks = { "A", "2", "3", "4",  "5", "6", "7", "8",
-                       "9", "10", "J", "Q", "K"};
+            string[] heading = { "Spades", "Clubs", "Hearts", "Diamonds" };
+            // array of the column heading
 
             // print heading row
             foreach (string thing in heading)
@@ -75,17 +79,34 @@ namespace ShuffleTheDeck
             }
             Console.WriteLine();
 
-            for (int rank = 0; rank < 12; rank++)
+            for (int rank = 1; rank <= 13; rank++)
             // print the rest of the rows
             {
                 for (int suit = 0; suit < 4; suit++)
                 //assemble the row
                 {
-                    if (drawnCards[suit, rank])
+                    if (drawnCards[suit, rank - 1])
                     {
-                        prettyNumber = rank + suit;
-                        //offset the number by the letter column
-                        currentRow += prettyNumber.ToString().PadLeft(padding) + columnSeperator; 
+                        switch (rank) 
+                        // convert the rank number to a letter for face cards and aces
+                        {
+                            case 1:
+                                prettyRank = "A";
+                                break;
+                            case 11:
+                                prettyRank = "J";
+                                break;
+                            case 12:
+                                prettyRank= "Q";
+                                break;
+                            case 13:
+                                prettyRank = "K";
+                                break;
+                            default:
+                                prettyRank = rank.ToString();
+                                break;
+                        }
+                        currentRow += prettyRank.ToString().PadLeft(padding) + columnSeperator; 
                         // if the card is drawn then print the number
                     }
                     else
@@ -100,15 +121,14 @@ namespace ShuffleTheDeck
         }
         static void DrawCard(bool[,] drawnCards)
         {
-            int suit = 0, number = 0;
+            int suit = 0, rank = 0;
             do
             {
                 suit = RandomNumberZeroTo(4);
-                number = RandomNumberZeroTo(14);
-            } while (drawnCards[suit, number]); 
+                rank = RandomNumberZeroTo(13);
+            } while (drawnCards[suit, rank]); 
             //keep trying until we get a card that hasn't been drawn
-
-            Program.drawnCards[suit, number] = true; 
+            Program.drawnCards[suit, rank] = true; 
             // mark the card as been drawn
 
         }
