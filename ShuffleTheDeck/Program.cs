@@ -3,7 +3,7 @@ Spring 2026
 RCET 2265
 Project RollOfTheDice
 Computer Fundamentals and Introduction to Programming
-
+https://github.com/groeluke/ShuffleTheDeck.git
 */
 
 namespace ShuffleTheDeck
@@ -30,14 +30,21 @@ namespace ShuffleTheDeck
                 }
                 if (cardCount < 52 && !firstRun)
                 {
-                    userPrompt = " If all cards have been drawn\n"
-                        + "Press C to draw a Card \n"
+                    userPrompt = " Welcome to Shuffle The Deck\n"
+                        + " If you want to shuffle and restart press C to clear board\n"
                         + " Or press Q to quit";
-                   
+                    newGame = true;
                     Console.WriteLine("Card Count: " + cardCount++); 
                     // increment the card drawn count
                     DrawCard(drawnCards);
                     // draw a card and mark it as drawn
+                }
+                if (cardCount >= 52)
+                {
+                    userPrompt = "All cards have been drawn\n"
+                        + "Press C to clear the drawn cards and start a new game\n"
+                        + " Or Press Q to quit";
+
                 }
                 else if (firstRun) 
                 // if this is the first run then prompt the user to draw the first card
